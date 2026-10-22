@@ -1,0 +1,8 @@
+ROLETA PREMIADA V1 - PROTÓTIPO LOCAL
+
+1. Extraia o ZIP.
+2. Abra index.html no navegador pelo Acode ou publique os arquivos em um repositório GitHub Pages.
+3. Em Master, configure roleta, prêmios e cupons.
+4. Em Cliente, gire e veja o histórico.
+
+IMPORTANTE: Esta versão é uma demonstração local, com dados salvos apenas no navegador. Não possui login, banco Supabase, QR Code real, pagamentos automáticos, busca automática de imagens, nem sorteio auditável no servidor. Não use para distribuição de prêmios reais ou promoções públicas. Para a versão de produção, são necessários autenticação, banco, controle de concorrência e servidor para sortear e resgatar vouchers. Imagens: inserir URL autorizada ou arquivo local pequeno. Sons são sintetizados no navegador.
