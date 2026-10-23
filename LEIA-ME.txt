@@ -1,7 +1,7 @@
-ROLETA PREMIADA V3 - DEMONSTRAÇÃO
+ROLETA PREMIADA V4 - DEMONSTRAÇÃO LOCAL
 
-Envie os seis arquivos extraídos para a raiz do repositório GitHub, substituindo os antigos. Atualize a página.
+Novidade: múltiplas fatias de Tente novamente, Não foi desta vez e Fica para a próxima. Apenas Tente novamente conserva o mesmo cupom, com limite configurável de tentativas gratuitas consecutivas.
 
-Novidades: cartões dos prêmios com destaque, confetes, efeitos separados de vitória/derrota/suspense/giro, biblioteca de opções, controle de volume e áudio próprio por sessão. Os sons internos são sintetizados (não são gravações de vozes humanas ou fogos reais). Para ouvir a voz real "Aaaah" ou fogos reais, carregue seu próprio arquivo MP3/WAV no painel Master.
+Envie os 6 arquivos extraídos para a raiz do mesmo repositório GitHub, substituindo os anteriores. Atualize o navegador após a publicação. Dados locais de versões anteriores são preservados quando possível.
 
-Dados da V2 mantidos no mesmo navegador. QR é demonstrativo. Ainda não existe autenticação, sorteio auditável, pesquisa automática de imagens, Supabase ou validação de resgate. Não usar para sorteios reais.
+ATENÇÃO: não há autenticação Master nem sorteio seguro no servidor. Não use para promoções reais.
