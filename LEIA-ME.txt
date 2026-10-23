@@ -1,1 +1,1 @@
-V13 - Correção de áudio: interrompe imediatamente MP3/WAV e efeitos sintetizados/agendados ao tocar GIRAR ROLETA novamente. Mantém dados locais. Substituir os seis arquivos no GitHub.
+Roleta Premiada V14 — Configurar quantidade de partes individual de cada prêmio no botão Configurar. Total de partes premiadas e não premiadas no Painel Master. Distribuição circular equilibrada. Cupons e configurações locais mantidos. Atualize os seis arquivos no GitHub.
