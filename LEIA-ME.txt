@@ -1,1 +1,1 @@
-Roleta Premiada V10: Cada prêmio tem botão Configurar com nome, cor, imagem, buscar outra imagem, excluir só imagem, arquivo local, MP3/WAV exclusivo, volume, ouvir, ativar/desativar, excluir só áudio ou prêmio inteiro. Som exclusivo salvo no IndexedDB do navegador e toca no prêmio vencedor. Dados antigos preservados. Substitua seis arquivos na raiz do GitHub.\n
+V11: ao clicar GIRAR ROLETA, qualquer MP3/WAV de prêmio ou efeito reproduzido é interrompido imediatamente. Evita reprodução tardia de áudio carregado de modo assíncrono. Atualize seis arquivos na raiz do GitHub.\n
