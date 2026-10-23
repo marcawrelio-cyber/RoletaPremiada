@@ -2,3 +2,5 @@ ROLETA PREMIADA V5 - PROTÓTIPO
 Novidades: divisões intercaladas de forma estável; todas as ocorrências de um resultado usam a mesma cor; escolha de cores no Master para cada resultado e prêmio. Cupons e histórico locais preservados na mesma origem/navegador.
 ATENÇÃO: protótipo sem autenticação, sorteio seguro no servidor ou validação de prêmios reais.
 Atualize os arquivos no GitHub Pages.
+
+V6: embaralhamento circular aprimorado; paleta individual por prêmio; MP3/WAV salvo localmente no IndexedDB do navegador (não sincroniza entre aparelhos). Limpar dados do site pode apagar os áudios.
