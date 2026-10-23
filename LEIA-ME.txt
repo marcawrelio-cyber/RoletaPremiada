@@ -4,3 +4,5 @@ ATENÇÃO: protótipo sem autenticação, sorteio seguro no servidor ou validaç
 Atualize os arquivos no GitHub Pages.
 
 V6: embaralhamento circular aprimorado; paleta individual por prêmio; MP3/WAV salvo localmente no IndexedDB do navegador (não sincroniza entre aparelhos). Limpar dados do site pode apagar os áudios.
+
+V7: ao consumir o último cupom, os cupons riscados desaparecem somente da tela do cliente. O histórico continua no Painel Master.
