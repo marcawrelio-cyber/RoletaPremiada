@@ -1,1 +1,1 @@
-V11: ao clicar GIRAR ROLETA, qualquer MP3/WAV de prêmio ou efeito reproduzido é interrompido imediatamente. Evita reprodução tardia de áudio carregado de modo assíncrono. Atualize seis arquivos na raiz do GitHub.\n
+ROLETA PREMIADA V12\nLogo e foto de fundo escolhidos diretamente na galeria do celular, com prévia e botão de excluir individualmente. Imagens compactadas e salvas no navegador local. Futuramente integrar Supabase Storage para acesso em outros dispositivos.\nAtualizar seis arquivos na raiz do GitHub.\n

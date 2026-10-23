@@ -52,7 +52,7 @@ function misturarFatias(items){
 function fatias(){const a=[...db.premios];const r=db.config.repeticoes;for(let i=0;i<Math.max(0,Number(r.tente)||0);i++)a.push({id:'tente',nome:'Tente novamente',img:'',tipo:'tente'});for(let i=0;i<Math.max(0,Number(r.perdeu)||0);i++)a.push({id:'perdeu',nome:'Não foi desta vez',img:'',tipo:'perdeu'});for(let i=0;i<Math.max(0,Number(r.proxima)||0);i++)a.push({id:'proxima',nome:'Fica para a próxima',img:'',tipo:'proxima'});return misturarFatias(a.length?a:[{id:'perdeu',nome:'Não foi desta vez',tipo:'perdeu'}])}
 function salvarResultados(){db.config.repeticoes={tente:Number($('qtTente').value),perdeu:Number($('qtPerdeu').value),proxima:Number($('qtProxima').value)};db.config.limiteTente=Number($('limiteTente').value);salvar();render()}
 function draw(){const cv=$('wheel'),ctx=cv.getContext('2d'),N=fatias().length,center=280,r=265,step=2*Math.PI/N;ctx.clearRect(0,0,560,560);let cores=[db.config.cor,'#ed667f','#49b8a4','#7f82e8','#f3984a','#67a6e1','#d36ec5','#8ab64d'];const entries=fatias();entries.forEach((p,i)=>{let start=ang+i*step-Math.PI/2;ctx.beginPath();ctx.moveTo(center,center);ctx.arc(center,center,r,start,start+step);ctx.closePath();ctx.fillStyle=corDoItem(p);ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#fff';ctx.stroke();ctx.save();ctx.translate(center,center);ctx.rotate(start+step/2);ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillStyle='#171b30';ctx.font='bold '+(N>9?'13':'18')+'px Arial';let txt=p.nome.length>15?p.nome.slice(0,14)+'…':p.nome;ctx.fillText(txt,r-15,0,r-70);ctx.restore();let im=imageFor(p.img);if(im){ctx.save();ctx.translate(center,center);ctx.rotate(start+step/2);let x=r*.46;ctx.beginPath();ctx.arc(x,0,27,0,Math.PI*2);ctx.clip();try{ctx.drawImage(im,x-27,-27,54,54)}catch(e){}ctx.restore()}});ctx.beginPath();ctx.arc(center,center,55,0,Math.PI*2);ctx.fillStyle='#20233d';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=5;ctx.stroke();ctx.fillStyle='white';ctx.font='bold 20px Arial';ctx.textAlign='center';ctx.fillText('SORTE',center,center+7);let logo=imageFor(db.config.logo);if(logo){ctx.save();ctx.beginPath();ctx.arc(center,center,48,0,Math.PI*2);ctx.clip();try{ctx.drawImage(logo,center-48,center-48,96,96)}catch(e){}ctx.restore()}}
-function render(){document.title=db.config.nome;const restantes=db.cupons.filter(c=>!c.usado).length;$('tickets').innerHTML=restantes?db.cupons.map(c=>`<span class="ticket ${c.usado?'used':''}">${esc(c.id)}</span>`).join(''):'';$('saldo').textContent=restantes?restantes+' rodadas disponíveis':'🎟️ Seus cupons acabaram! Volte em breve para novas oportunidades.';$('spin').disabled=ocupado||!db.cupons.some(c=>!c.usado);$('vouchers').innerHTML=db.vouchers.length?db.vouchers.map(v=>`<div class="item"><div>🏆 <b>${esc(v.nome)}</b><br><small>Cupom ${esc(v.cupom)} • Código ${esc(v.codigo)}</small><br><small>${v.resgatado?'RESGATADO':'PENDENTE DE RESGATE'}</small></div><button onclick="mostrarQR('${v.codigo}')">🎟️ Voucher</button><button onclick="resgatar('${v.codigo}')">${v.resgatado?'✓':'Marcar resgatado'}</button></div>`).join(''):'Nenhum prêmio ainda';for(let k of ['nome','cor','volume','tempo','som','vitoria','suspense','logo','chance','estiloSom','fundo']){let el=$(k);if(el)el.type==='checkbox'?el.checked=!!db.config[k]:el.value=db.config[k]}$('volumeOut').textContent=db.config.volume+'%';$('tempoOut').textContent=db.config.tempo+' segundos';$('premios').innerHTML=db.premios.map(p=>`<div class="item premioResumo">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`:'🎁'} <span>${esc(p.nome)}</span><button onclick="abrirConfigPremio('${p.id}')">⚙️ Configurar</button></div>`).join('');$('cupomSelect').innerHTML=db.cupons.filter(c=>!c.usado).map(c=>`<option value="${c.id}">${c.id}${c.premio?' (prêmio definido)':''}</option>`).join('');$('premioSelect').innerHTML=db.premios.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');$('listaCupons').innerHTML=db.cupons.map(c=>`<div class="item"><span>${esc(c.id)} • ${c.usado?'Utilizado':c.premio?'Prêmio definido':'Aleatório'}</span></div>`).join('');$('qtTente').value=db.config.repeticoes.tente;$('qtPerdeu').value=db.config.repeticoes.perdeu;$('qtProxima').value=db.config.repeticoes.proxima;$('limiteTente').value=db.config.limiteTente;draw();for(const [id,tipo] of [['corTente','tente'],['corPerdeu','perdeu'],['corProxima','proxima']]){if($(id))$(id).value=corDoItem({tipo})}renderSounds();renderPrizeCards()}
+function render(){document.title=db.config.nome;const restantes=db.cupons.filter(c=>!c.usado).length;$('tickets').innerHTML=restantes?db.cupons.map(c=>`<span class="ticket ${c.usado?'used':''}">${esc(c.id)}</span>`).join(''):'';$('saldo').textContent=restantes?restantes+' rodadas disponíveis':'🎟️ Seus cupons acabaram! Volte em breve para novas oportunidades.';$('spin').disabled=ocupado||!db.cupons.some(c=>!c.usado);$('vouchers').innerHTML=db.vouchers.length?db.vouchers.map(v=>`<div class="item"><div>🏆 <b>${esc(v.nome)}</b><br><small>Cupom ${esc(v.cupom)} • Código ${esc(v.codigo)}</small><br><small>${v.resgatado?'RESGATADO':'PENDENTE DE RESGATE'}</small></div><button onclick="mostrarQR('${v.codigo}')">🎟️ Voucher</button><button onclick="resgatar('${v.codigo}')">${v.resgatado?'✓':'Marcar resgatado'}</button></div>`).join(''):'Nenhum prêmio ainda';for(let k of ['nome','cor','volume','tempo','som','vitoria','suspense','logo','chance','estiloSom','fundo']){let el=$(k);if(el)el.type==='checkbox'?el.checked=!!db.config[k]:el.value=db.config[k]}$('volumeOut').textContent=db.config.volume+'%';$('tempoOut').textContent=db.config.tempo+' segundos';$('premios').innerHTML=db.premios.map(p=>`<div class="item premioResumo">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`:'🎁'} <span>${esc(p.nome)}</span><button onclick="abrirConfigPremio('${p.id}')">⚙️ Configurar</button></div>`).join('');$('cupomSelect').innerHTML=db.cupons.filter(c=>!c.usado).map(c=>`<option value="${c.id}">${c.id}${c.premio?' (prêmio definido)':''}</option>`).join('');$('premioSelect').innerHTML=db.premios.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');$('listaCupons').innerHTML=db.cupons.map(c=>`<div class="item"><span>${esc(c.id)} • ${c.usado?'Utilizado':c.premio?'Prêmio definido':'Aleatório'}</span></div>`).join('');$('qtTente').value=db.config.repeticoes.tente;$('qtPerdeu').value=db.config.repeticoes.perdeu;$('qtProxima').value=db.config.repeticoes.proxima;$('limiteTente').value=db.config.limiteTente;draw();for(const [id,tipo] of [['corTente','tente'],['corPerdeu','perdeu'],['corProxima','proxima']]){if($(id))$(id).value=corDoItem({tipo})}renderSounds();renderPrizeCards();atualizarPreviewVisual()}
 function renderPrizeCards(){let el=$('prizeCards');if(!el)return;el.innerHTML=[...db.premios,{id:'tente',nome:'Tente novamente',img:''},{id:'perdeu',nome:'Não foi desta vez',img:''},{id:'proxima',nome:'Fica para a próxima',img:''}].map(p=>`<div class="prizeCard" style="border-color:${corDoItem(p)}" data-prize="${esc(p.id)}">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`:'<div style="font-size:48px">'+(p.id==='tente'?'🔄':p.id==='perdeu'?'😢':p.id==='proxima'?'🍀':'🎁')+'</div>'}<strong>${esc(p.nome)}</strong></div>`).join('')}
 function corPremio(id,cor){const p=db.premios.find(p=>p.id===id);if(p){p.cor=cor;salvar();draw();renderPrizeCards()}}
 function corResultado(tipo,cor){db.config.coresResultados||={};db.config.coresResultados[tipo]=cor;salvar();draw();renderPrizeCards()}
@@ -149,3 +149,46 @@ async function audioDoPremio(p){if(premioAudios[p.id])return premioAudios[p.id];
 async function tocarSomPremio(p,teste=false){if(!p||!p.somNome||p.somAtivo===false||(!teste&&!db.config.som))return;const url=await audioDoPremio(p);if(!url){if(teste)alert('Áudio não disponível neste aparelho.');return}const a=new Audio(url);a.volume=Math.max(0,Math.min(1,(p.somVolume??80)/100*(teste?1:db.config.volume/100)));a.play().catch(()=>{if(teste)alert('Não foi possível reproduzir este áudio.')})}
 function testarSomPremio(){tocarSomPremio(db.premios.find(x=>x.id===premioAberto),true)}
 async function excluirSomPremio(){const p=db.premios.find(x=>x.id===premioAberto);if(!p||!p.somNome)return;if(!confirm('Excluir apenas o áudio deste prêmio?'))return;try{const dbx=await audioDB;await new Promise((resolve,reject)=>{const tx=dbx.transaction('audios','readwrite');tx.objectStore('audios').delete('premio_'+p.id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}catch(e){}if(premioAudios[p.id])URL.revokeObjectURL(premioAudios[p.id]);delete premioAudios[p.id];p.somNome='';salvar();abrirConfigPremio(p.id)}
+
+// V12: fotos locais do logo e do fundo. Guardadas no navegador como JPEG compactado.
+function atualizarPreviewVisual(){
+ for(const campo of ['logo','fundo']){
+  const area=$(campo+'Preview');if(!area)continue;
+  const url=db.config[campo];
+  area.innerHTML=url?`<img src="${esc(url)}" alt="Prévia ${campo}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px">`:'<small>Nenhuma imagem selecionada</small>';
+ }
+}
+async function imagemVisualDoCelular(campo,input){
+ const file=input.files?.[0];if(!file)return;
+ if(!file.type.startsWith('image/'))return alert('Escolha um arquivo de imagem.');
+ const reader=new FileReader();
+ reader.onerror=()=>alert('Não foi possível abrir a foto.');
+ reader.onload=()=>{
+  const im=new Image();
+  im.onerror=()=>alert('A foto não pôde ser lida.');
+  im.onload=()=>{
+   const limite=campo==='logo'?450:1000;
+   const escala=Math.min(1,limite/Math.max(im.width,im.height));
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.max(1,Math.round(im.width*escala));canvas.height=Math.max(1,Math.round(im.height*escala));
+   const ctx=canvas.getContext('2d');
+   ctx.drawImage(im,0,0,canvas.width,canvas.height);
+   const imagem=canvas.toDataURL('image/jpeg',campo==='logo'?.82:.68);
+   const anterior=db.config[campo];db.config[campo]=imagem;
+   try{salvar()}catch(e){db.config[campo]=anterior;return alert('O navegador ficou sem espaço para salvar. Escolha uma foto menor.')}
+   if(campo==='fundo')document.body.style.setProperty('--fundo',`url("${imagem}")`);
+   if(campo==='logo')draw();
+   atualizarPreviewVisual();input.value='';
+  };
+  im.src=reader.result;
+ };
+ reader.readAsDataURL(file);
+}
+function excluirImagemVisual(campo){
+ if(!confirm('Excluir esta imagem? Os demais dados da roleta serão mantidos.'))return;
+ const anterior=db.config[campo];db.config[campo]='';
+ try{salvar()}catch(e){db.config[campo]=anterior;return alert('Não foi possível salvar a alteração.')}
+ if(campo==='fundo')document.body.style.setProperty('--fundo','none');
+ if(campo==='logo')draw();
+ atualizarPreviewVisual();
+}
