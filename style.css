@@ -5,3 +5,5 @@ body{background-image:linear-gradient(#101223c9,#101223ec),var(--fundo,none);bac
 
 .visualPreview{min-height:75px;margin:12px 0;padding:10px;border:1px dashed #8b8db1;border-radius:12px;text-align:center}
 input[type=file]{max-width:100%;box-sizing:border-box}
+
+.ticketResult{display:block;font-size:10px;line-height:1.2;margin-top:3px;max-width:85px;overflow-wrap:anywhere}.ticket{height:auto;min-height:48px}
