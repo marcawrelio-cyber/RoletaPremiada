@@ -1,7 +1,4 @@
-ROLETA PREMIADA V4 - DEMONSTRAÇÃO LOCAL
-
-Novidade: múltiplas fatias de Tente novamente, Não foi desta vez e Fica para a próxima. Apenas Tente novamente conserva o mesmo cupom, com limite configurável de tentativas gratuitas consecutivas.
-
-Envie os 6 arquivos extraídos para a raiz do mesmo repositório GitHub, substituindo os anteriores. Atualize o navegador após a publicação. Dados locais de versões anteriores são preservados quando possível.
-
-ATENÇÃO: não há autenticação Master nem sorteio seguro no servidor. Não use para promoções reais.
+ROLETA PREMIADA V5 - PROTÓTIPO
+Novidades: divisões intercaladas de forma estável; todas as ocorrências de um resultado usam a mesma cor; escolha de cores no Master para cada resultado e prêmio. Cupons e histórico locais preservados na mesma origem/navegador.
+ATENÇÃO: protótipo sem autenticação, sorteio seguro no servidor ou validação de prêmios reais.
+Atualize os arquivos no GitHub Pages.
