@@ -52,7 +52,7 @@ function misturarFatias(items){
 function fatias(){const a=[...db.premios];const r=db.config.repeticoes;for(let i=0;i<Math.max(0,Number(r.tente)||0);i++)a.push({id:'tente',nome:'Tente novamente',img:'',tipo:'tente'});for(let i=0;i<Math.max(0,Number(r.perdeu)||0);i++)a.push({id:'perdeu',nome:'Não foi desta vez',img:'',tipo:'perdeu'});for(let i=0;i<Math.max(0,Number(r.proxima)||0);i++)a.push({id:'proxima',nome:'Fica para a próxima',img:'',tipo:'proxima'});return misturarFatias(a.length?a:[{id:'perdeu',nome:'Não foi desta vez',tipo:'perdeu'}])}
 function salvarResultados(){db.config.repeticoes={tente:Number($('qtTente').value),perdeu:Number($('qtPerdeu').value),proxima:Number($('qtProxima').value)};db.config.limiteTente=Number($('limiteTente').value);salvar();render()}
 function draw(){const cv=$('wheel'),ctx=cv.getContext('2d'),N=fatias().length,center=280,r=265,step=2*Math.PI/N;ctx.clearRect(0,0,560,560);let cores=[db.config.cor,'#ed667f','#49b8a4','#7f82e8','#f3984a','#67a6e1','#d36ec5','#8ab64d'];const entries=fatias();entries.forEach((p,i)=>{let start=ang+i*step-Math.PI/2;ctx.beginPath();ctx.moveTo(center,center);ctx.arc(center,center,r,start,start+step);ctx.closePath();ctx.fillStyle=corDoItem(p);ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='#fff';ctx.stroke();ctx.save();ctx.translate(center,center);ctx.rotate(start+step/2);ctx.textAlign='right';ctx.textBaseline='middle';ctx.fillStyle='#171b30';ctx.font='bold '+(N>9?'13':'18')+'px Arial';let txt=p.nome.length>15?p.nome.slice(0,14)+'…':p.nome;ctx.fillText(txt,r-15,0,r-70);ctx.restore();let im=imageFor(p.img);if(im){ctx.save();ctx.translate(center,center);ctx.rotate(start+step/2);let x=r*.46;ctx.beginPath();ctx.arc(x,0,27,0,Math.PI*2);ctx.clip();try{ctx.drawImage(im,x-27,-27,54,54)}catch(e){}ctx.restore()}});ctx.beginPath();ctx.arc(center,center,55,0,Math.PI*2);ctx.fillStyle='#20233d';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=5;ctx.stroke();ctx.fillStyle='white';ctx.font='bold 20px Arial';ctx.textAlign='center';ctx.fillText('SORTE',center,center+7);let logo=imageFor(db.config.logo);if(logo){ctx.save();ctx.beginPath();ctx.arc(center,center,48,0,Math.PI*2);ctx.clip();try{ctx.drawImage(logo,center-48,center-48,96,96)}catch(e){}ctx.restore()}}
-function render(){document.title=db.config.nome;const restantes=db.cupons.filter(c=>!c.usado).length;$('tickets').innerHTML=restantes?db.cupons.map(c=>`<span class="ticket ${c.usado?'used':''}">${esc(c.id)}</span>`).join(''):'';$('saldo').textContent=restantes?restantes+' rodadas disponíveis':'🎟️ Seus cupons acabaram! Volte em breve para novas oportunidades.';$('spin').disabled=ocupado||!db.cupons.some(c=>!c.usado);$('vouchers').innerHTML=db.vouchers.length?db.vouchers.map(v=>`<div class="item"><div>🏆 <b>${esc(v.nome)}</b><br><small>Cupom ${esc(v.cupom)} • Código ${esc(v.codigo)}</small><br><small>${v.resgatado?'RESGATADO':'PENDENTE DE RESGATE'}</small></div><button onclick="mostrarQR('${v.codigo}')">🎟️ Voucher</button><button onclick="resgatar('${v.codigo}')">${v.resgatado?'✓':'Marcar resgatado'}</button></div>`).join(''):'Nenhum prêmio ainda';for(let k of ['nome','cor','volume','tempo','som','vitoria','suspense','logo','chance','estiloSom','fundo']){let el=$(k);if(el)el.type==='checkbox'?el.checked=!!db.config[k]:el.value=db.config[k]}$('volumeOut').textContent=db.config.volume+'%';$('tempoOut').textContent=db.config.tempo+' segundos';$('premios').innerHTML=db.premios.map(p=>`<div class="item">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`: '🎁'} <span>${esc(p.nome)}</span><label style="width:85px">Cor<input type="color" value="${corDoItem(p)}" onchange="corPremio('${p.id}',this.value)"></label><button id="imgbtn_${p.id}" onclick="preencherImagemPremio('${p.id}')">🔎 Buscar imagem</button><button onclick="removerPremio('${p.id}')">Excluir</button></div>`).join('');$('cupomSelect').innerHTML=db.cupons.filter(c=>!c.usado).map(c=>`<option value="${c.id}">${c.id}${c.premio?' (prêmio definido)':''}</option>`).join('');$('premioSelect').innerHTML=db.premios.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');$('listaCupons').innerHTML=db.cupons.map(c=>`<div class="item"><span>${esc(c.id)} • ${c.usado?'Utilizado':c.premio?'Prêmio definido':'Aleatório'}</span></div>`).join('');$('qtTente').value=db.config.repeticoes.tente;$('qtPerdeu').value=db.config.repeticoes.perdeu;$('qtProxima').value=db.config.repeticoes.proxima;$('limiteTente').value=db.config.limiteTente;draw();for(const [id,tipo] of [['corTente','tente'],['corPerdeu','perdeu'],['corProxima','proxima']]){if($(id))$(id).value=corDoItem({tipo})}renderSounds();renderPrizeCards()}
+function render(){document.title=db.config.nome;const restantes=db.cupons.filter(c=>!c.usado).length;$('tickets').innerHTML=restantes?db.cupons.map(c=>`<span class="ticket ${c.usado?'used':''}">${esc(c.id)}</span>`).join(''):'';$('saldo').textContent=restantes?restantes+' rodadas disponíveis':'🎟️ Seus cupons acabaram! Volte em breve para novas oportunidades.';$('spin').disabled=ocupado||!db.cupons.some(c=>!c.usado);$('vouchers').innerHTML=db.vouchers.length?db.vouchers.map(v=>`<div class="item"><div>🏆 <b>${esc(v.nome)}</b><br><small>Cupom ${esc(v.cupom)} • Código ${esc(v.codigo)}</small><br><small>${v.resgatado?'RESGATADO':'PENDENTE DE RESGATE'}</small></div><button onclick="mostrarQR('${v.codigo}')">🎟️ Voucher</button><button onclick="resgatar('${v.codigo}')">${v.resgatado?'✓':'Marcar resgatado'}</button></div>`).join(''):'Nenhum prêmio ainda';for(let k of ['nome','cor','volume','tempo','som','vitoria','suspense','logo','chance','estiloSom','fundo']){let el=$(k);if(el)el.type==='checkbox'?el.checked=!!db.config[k]:el.value=db.config[k]}$('volumeOut').textContent=db.config.volume+'%';$('tempoOut').textContent=db.config.tempo+' segundos';$('premios').innerHTML=db.premios.map(p=>`<div class="item">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`: '🎁'} <span>${esc(p.nome)}</span><label style="width:85px">Cor<input type="color" value="${corDoItem(p)}" onchange="corPremio('${p.id}',this.value)"></label><button id="imgbtn_${p.id}" onclick="preencherImagemPremio('${p.id}')">🔄 Buscar outra imagem</button><button onclick="removerImagemPremio('${p.id}')">🖼️ Excluir imagem</button><label style="max-width:150px">📁 Trocar por foto<input type="file" accept="image/*" onchange="imagemLocalPremio('${p.id}',this)"></label><button onclick="removerPremio('${p.id}')">🗑️ Excluir prêmio</button></div>`).join('');$('cupomSelect').innerHTML=db.cupons.filter(c=>!c.usado).map(c=>`<option value="${c.id}">${c.id}${c.premio?' (prêmio definido)':''}</option>`).join('');$('premioSelect').innerHTML=db.premios.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');$('listaCupons').innerHTML=db.cupons.map(c=>`<div class="item"><span>${esc(c.id)} • ${c.usado?'Utilizado':c.premio?'Prêmio definido':'Aleatório'}</span></div>`).join('');$('qtTente').value=db.config.repeticoes.tente;$('qtPerdeu').value=db.config.repeticoes.perdeu;$('qtProxima').value=db.config.repeticoes.proxima;$('limiteTente').value=db.config.limiteTente;draw();for(const [id,tipo] of [['corTente','tente'],['corPerdeu','perdeu'],['corProxima','proxima']]){if($(id))$(id).value=corDoItem({tipo})}renderSounds();renderPrizeCards()}
 function renderPrizeCards(){let el=$('prizeCards');if(!el)return;el.innerHTML=[...db.premios,{id:'tente',nome:'Tente novamente',img:''},{id:'perdeu',nome:'Não foi desta vez',img:''},{id:'proxima',nome:'Fica para a próxima',img:''}].map(p=>`<div class="prizeCard" style="border-color:${corDoItem(p)}" data-prize="${esc(p.id)}">${p.img?`<img src="${esc(p.img)}" onerror="this.style.display='none'">`:'<div style="font-size:48px">'+(p.id==='tente'?'🔄':p.id==='perdeu'?'😢':p.id==='proxima'?'🍀':'🎁')+'</div>'}<strong>${esc(p.nome)}</strong></div>`).join('')}
 function corPremio(id,cor){const p=db.premios.find(p=>p.id===id);if(p){p.cor=cor;salvar();draw();renderPrizeCards()}}
 function corResultado(tipo,cor){db.config.coresResultados||={};db.config.coresResultados[tipo]=cor;salvar();draw();renderPrizeCards()}
@@ -79,7 +79,7 @@ const imagemConsultas=[
 [/brinde|surpresa/i,'gift box present']
 ];
 function consultaImagem(nome){return (imagemConsultas.find(([rx])=>rx.test(nome))||[null,nome])[1]}
-async function buscarImagemCoerente(nome){
+async function buscarImagemCoerente(nome,ignoradas=[]){
  const query=consultaImagem(nome);
  const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent(query+' filetype:bitmap')+'&gsrnamespace=6&gsrlimit=20&prop=imageinfo&iiprop=url|mime|extmetadata&iiurlwidth=450&format=json&origin=*';
  const r=await fetch(api,{cache:'no-store'});if(!r.ok)throw Error('Serviço de imagens indisponível');
@@ -97,7 +97,7 @@ async function buscarImagemCoerente(nome){
   if(/svg|webp|png|jpeg/i.test(info?.mime||''))score+=1;
   if(/no known copyright|public domain|cc0/i.test(license))score+=2;
   return {url:info?.thumburl||info?.url,source:info?.descriptionurl,license,score,title:p.title};
- }).filter(x=>x.url&&x.score>=3).sort((a,b)=>b.score-a.score);
+ }).filter(x=>x.url&&x.score>=3&&!ignoradas.includes(x.url)).sort((a,b)=>b.score-a.score);
  if(!candidates.length)throw Error('Nenhuma imagem suficientemente relacionada foi encontrada');
  return candidates[0];
 }
@@ -105,12 +105,12 @@ async function preencherImagemPremio(id,automatico=false){
  const p=db.premios.find(x=>x.id===id);if(!p)return;
  const btn=document.getElementById('imgbtn_'+id);if(btn){btn.disabled=true;btn.textContent='🔎 Procurando...'}
  try{
-  const img=await buscarImagemCoerente(p.nome);
+  const img=await buscarImagemCoerente(p.nome,p.imagensIgnoradas||[]);
   if(!db.premios.some(x=>x.id===id))return;
-  p.img=img.url;p.imgFonte=img.source;p.imgLicenca=img.license;salvar();render();
+  if(p.img && !p.img.startsWith('data:')){p.imagensIgnoradas||=[];if(!p.imagensIgnoradas.includes(p.img))p.imagensIgnoradas.push(p.img)}p.img=img.url;p.imgFonte=img.source;p.imgLicenca=img.license;salvar();render();
   if(!automatico)alert('Imagem encontrada e aplicada. Confira se ela corresponde ao prêmio; você pode substituir manualmente.');
  }catch(e){
-  if(!automatico)alert('Não encontrei imagem adequada: '+e.message+'. Você pode enviar uma foto do celular.');
+  if(!automatico)alert('Não encontrei outra imagem adequada: '+e.message+'. Você pode escolher uma foto do celular ou excluir apenas a imagem.');
  }finally{if(btn){btn.disabled=false;btn.textContent='🔎 Buscar imagem'}} 
 }
 async function buscarImagensSemFoto(){
@@ -119,3 +119,18 @@ async function buscarImagensSemFoto(){
 }
 
 // A busca inicial é opcional, iniciada pelo Master para evitar consultas a cada abertura.
+
+function removerImagemPremio(id){
+ const p=db.premios.find(x=>x.id===id);if(!p)return;
+ if(!p.img)return alert('Este prêmio já está sem imagem.');
+ if(!confirm('Excluir apenas a imagem? O prêmio e os cupons serão mantidos.'))return;
+ p.img='';p.imgFonte='';p.imgLicenca='';p.imagensIgnoradas=[];
+ salvar();render();
+}
+function imagemLocalPremio(id,input){
+ const p=db.premios.find(x=>x.id===id),f=input.files?.[0];if(!p||!f)return;
+ if(f.size>200000)return alert('Imagem muito grande para armazenamento local. Escolha uma foto menor que 200 KB.');
+ const reader=new FileReader();
+ reader.onload=()=>{p.img=reader.result;p.imgFonte='';p.imgLicenca='';salvar();render()};
+ reader.readAsDataURL(f);
+}

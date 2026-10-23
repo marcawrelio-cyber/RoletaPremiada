@@ -1,4 +1,1 @@
-ROLETA PREMIADA V8
-Busca experimental de imagens via Wikimedia Commons. Não é seleção por IA e pode não encontrar resultado adequado. Confirme licenças antes de uso comercial.
-MP3/WAV: ao enviar, ativa a opção Meu MP3/WAV; armazena no IndexedDB local.
-Troque os seis arquivos na raiz do GitHub. Dados antigos no navegador preservados.
+ROLETA PREMIADA V9\nMaster > Prêmios: Buscar outra imagem pula imagens já usadas para o prêmio; Excluir imagem mantém o prêmio; Excluir prêmio remove o prêmio. Trocar por foto permite escolher arquivo do celular (até 200 KB).\nBusca Wikimedia Commons experimental: quando esgotar imagens relevantes, avisa.\nSubstituir seis arquivos na raiz do GitHub.\n
