@@ -1,4 +1,7 @@
-ROLETA PREMIADA V2 — PROTÓTIPO
-Envie os seis arquivos extraídos para a raiz do repositório GitHub, substituindo os anteriores. Recarregue o site.
-Novidades: estalos mecânicos sintetizados, estilos de áudio, botão testar som, imagem do prêmio na roleta, logo central, fundo por URL e voucher demonstrativo QR Code (usa biblioteca online).
-ATENÇÃO: sem autenticação, servidor, banco de dados, validação real de QR ou segurança de sorteio. Não use para prêmios reais. O áudio é síntese mecânica aprimorada, não uma gravação de roleta física.
+ROLETA PREMIADA V3 - DEMONSTRAÇÃO
+
+Envie os seis arquivos extraídos para a raiz do repositório GitHub, substituindo os antigos. Atualize a página.
+
+Novidades: cartões dos prêmios com destaque, confetes, efeitos separados de vitória/derrota/suspense/giro, biblioteca de opções, controle de volume e áudio próprio por sessão. Os sons internos são sintetizados (não são gravações de vozes humanas ou fogos reais). Para ouvir a voz real "Aaaah" ou fogos reais, carregue seu próprio arquivo MP3/WAV no painel Master.
+
+Dados da V2 mantidos no mesmo navegador. QR é demonstrativo. Ainda não existe autenticação, sorteio auditável, pesquisa automática de imagens, Supabase ou validação de resgate. Não usar para sorteios reais.
